@@ -7,6 +7,7 @@ const screens = document.querySelectorAll('.screen')
 const timeBtn = document.querySelector('#time-list')
 let time = 0
 const timeEl = document.querySelector('#time')
+const board = document.querySelector('#board')
 
 startBtn.addEventListener('click', (event) => {
     //Если нажать на "Начать игру"
@@ -38,6 +39,7 @@ function startGame() {
     screens[1].classList.add('up')
     //Каждые 1000 милисек (1сек) вызывает переданную в парам фунцию
     setInterval(decreaseTime, 1000)
+    createRandomCircle()
 
     //Мы вбрали определенное время и его нужно передать в игру
     setTime(time)
@@ -61,7 +63,26 @@ function setTime(value){
     timeEl.innerHTML = `00:${value}`
 }
 
-
+//Если время вышло
 function finishGame(){
     console.log('finishGame')
+
+
+}
+//Добавление рандомных кружков
+function createRandomCircle(){
+    const circle = document.createElement('div')
+
+    const size = getRandomNumber(10, 60)
+
+    circle.classList.add('circle')
+    //
+    circle.style.width = `${size}px`
+    circle.style.height = `${size}px`
+
+    board.append(circle)
+}
+
+function getRandomNumber(min, max){
+    return Math.round(Math.random() * (max-min) + min)
 }
