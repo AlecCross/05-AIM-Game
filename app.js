@@ -9,6 +9,8 @@ let time = 0
 const timeEl = document.querySelector('#time')
 const board = document.querySelector('#board')
 
+let score = 0
+
 startBtn.addEventListener('click', (event) => {
     //Если нажать на "Начать игру"
     //в адресной строке http://127.0.0.1:5500/index.html
@@ -34,6 +36,19 @@ timeBtn.addEventListener('click', (event) => {
         startGame()
     }
 })
+
+
+
+board.addEventListener('click', (event) => {
+    if(event.target.classList.contains('circle')){
+        score++
+
+        event.target.remove()
+        createRandomCircle()
+    }
+})
+
+
 
 function startGame() {   
     screens[1].classList.add('up')
@@ -67,7 +82,9 @@ function setTime(value){
 function finishGame(){
     console.log('finishGame')
 
+    board.innerHTML = `<h1>Счет: <span class="primary">${score} </span></h1>`
 
+    timeEl.parentNode.classList.add('hide')()
 }
 //Добавление рандомных кружков
 function createRandomCircle(){
