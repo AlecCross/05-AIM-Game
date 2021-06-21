@@ -6,6 +6,7 @@ const screens = document.querySelectorAll('.screen')
 //Список выбора времени 10 20 30
 const timeBtn = document.querySelector('#time-list')
 let time = 0
+const timeEl = document.querySelector('#time')
 
 startBtn.addEventListener('click', (event) => {
     //Если нажать на "Начать игру"
@@ -29,7 +30,38 @@ timeBtn.addEventListener('click', (event) => {
         //data-time="10"...
 
         time = parseInt(event.target.getAttribute('data-time'))
+        startGame()
+    }
+})
+
+function startGame() {   
+    screens[1].classList.add('up')
+    //Каждые 1000 милисек (1сек) вызывает переданную в парам фунцию
+    setInterval(decreaseTime, 1000)
+
+    //Мы вбрали определенное время и его нужно передать в игру
+    setTime(time)
+}
+
+function decreaseTime(){
+    if(time===0){
+        finishGame()
+    }
+    else {
+            let current = --time
+        if(current < 10){
+            current = `0${current}`
+        }
+        setTime(current)
     }
     
+}
 
-})
+function setTime(value){
+    timeEl.innerHTML = `00:${value}`
+}
+
+
+function finishGame(){
+    console.log('finishGame')
+}
